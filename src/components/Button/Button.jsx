@@ -1,14 +1,11 @@
-import cls from './Button.module.css';
+import cls from "./Button.module.css";
 
-const isAqua = false;
-
-const Button = ({onClick, children}) => {
+const Button = ({ onClick, isActive, isDisabled, children }) => {
   return (
-    <button 
-        className={`${cls.btn} ${isAqua ? cls.aqua : ''} counter`}
-        onClick={onClick}
-    >{children}</button>
-  )
-}
+    <button className={`${cls.btn} ${isActive ? cls.active : ""}`} onClick={onClick} disabled={isDisabled}>
+      {children}
+    </button>
+  );
+};
 
-export default Button
+export default Button;
