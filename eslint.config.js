@@ -6,33 +6,33 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import prettier from "eslint-plugin-prettier";
 
 export default defineConfig([
-    globalIgnores(["dist"]),
-    {
-        files: ["**/*.{js,jsx}"],
-        extends: [js.configs.recommended, reactHooks.configs.flat.recommended, reactRefresh.configs.vite],
-        languageOptions: {
-            ecmaVersion: 2020,
-            globals: globals.browser,
-            parserOptions: {
-                ecmaVersion: "latest",
-                ecmaFeatures: { jsx: true },
-                sourceType: "module",
-            },
-        },
-        plugins: {
-            prettier: prettier,
-        },
-        rules: {
-            "no-unused-vars": ["error", { varsIgnorePattern: "^[A-Z_]" }],
-            "prettier/prettier": [
-                "error",
-                {
-                    singleQuote: false,
-                    printWidth: 130,
-                    tabWidth: 4,
-                    endOfLine: "auto",
-                },
-            ],
-        },
+  globalIgnores(["dist"]),
+  {
+    files: ["**/*.{js,jsx}"],
+    extends: [js.configs.recommended, reactHooks.configs.flat.recommended, reactRefresh.configs.vite],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+      parserOptions: {
+        ecmaVersion: "latest",
+        ecmaFeatures: { jsx: true },
+        sourceType: "module",
+      },
     },
+    plugins: {
+      prettier: prettier,
+    },
+    rules: {
+      "no-unused-vars": ["error", { varsIgnorePattern: "^[A-Z_]" }],
+      "prettier/prettier": [
+        "error",
+        {
+          singleQuote: false,
+          printWidth: 130,
+          tabWidth: 2,
+          endOfLine: "auto",
+        },
+      ],
+    },
+  },
 ]);
