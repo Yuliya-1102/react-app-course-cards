@@ -1,6 +1,7 @@
 :root {
     --main-bg-color: #23272F;
     --text-color: #fff;
+    --card-bg-color: #ebedf0;
 
     /* Button */
     --btn-bg-color: #383b3f;
@@ -38,6 +39,7 @@ body {
     :root {
         --main-bg-color: #fff;
         --text-color: #000;
+        --card-bg-color: #ebedf0;
 
         --btn-bg-color: #16444f;
         --btn-text-color: #57c4dc;
@@ -48,6 +50,8 @@ body {
     :root {
         --main-bg-color: #23272F;
         --text-color: #fff;
+        --card-bg-color: #343a46;
+
         --btn-bg-color: #383b3f;
         --btn-text-color: #fff;
     }
