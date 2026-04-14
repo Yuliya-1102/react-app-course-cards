@@ -4,9 +4,7 @@ import { QuestionCard } from "../QuestionCard";
 const QuestionCardList = ({ cards }) => {
   return (
     <div className={cls.cardList}>
-      {cards.map((item, index) => (
-        <QuestionCard key={index} {...item} />
-      ))}
+      {Array.isArray(cards) && cards.length > 0 ? cards.map((card) => <QuestionCard key={card.id} {...card} />) : ""}
     </div>
   );
 };

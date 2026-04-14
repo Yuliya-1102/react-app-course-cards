@@ -16,8 +16,9 @@ export const useFetch = (callback) => {
       const response = await callback(arg);
 
       return response;
-    } catch (error) {
-      setError(error);
+    } catch (e) {
+      setError(e.message);
+      throw e;
     } finally {
       setIsLoading(false);
     }
