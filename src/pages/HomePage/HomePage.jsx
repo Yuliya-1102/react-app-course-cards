@@ -1,3 +1,4 @@
+import Loader from "../../components/Loader/Loader";
 import QuestionCardList from "../../components/QuestionCardList/QuestionCardList";
 import { API_URL, API_RESOURCES } from "../../constants";
 import { useEffect, useState } from "react";
@@ -5,7 +6,7 @@ import { useEffect, useState } from "react";
 const HomePage = () => {
   const [questions, setQuestions] = useState([]);
 
-  const getQuestions = async () => {
+  const fetchQuestions = async () => {
     try {
       const response = await fetch(`${API_URL}/${API_RESOURCES}`, {
         cache: "no-store", // отключаем кэш браузера
@@ -19,11 +20,12 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    getQuestions();
+    fetchQuestions();
   }, []);
 
   return (
     <>
+      <Loader />
       <QuestionCardList cards={questions} />
     </>
   );
