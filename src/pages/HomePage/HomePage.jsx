@@ -1,5 +1,4 @@
-import cls from "./HomePage.module.css";
-import { QuestionCard } from "../../components/QuestionCard";
+import QuestionCardList from "../../components/QuestionCardList/QuestionCardList";
 import { API_URL, API_RESOURCES } from "../../constants";
 import { useEffect, useState } from "react";
 
@@ -25,11 +24,7 @@ const HomePage = () => {
 
   return (
     <>
-      <div className={cls.cardsWrapper}>
-        {questions.map((item, index) => (
-          <QuestionCard key={index} {...item} />
-        ))}
-      </div>
+      <QuestionCardList cards={questions} />
     </>
   );
 };
