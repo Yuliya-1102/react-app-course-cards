@@ -1,9 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Loader from "../../components/Loader/Loader";
 import QuestionCardList from "../../components/QuestionCardList/QuestionCardList";
 import { API_URL, API_RESOURCES } from "../../constants";
 import { useFetch } from "../../hooks/useFetch";
+
+import cls from "./HomePage.module.css";
+import { SearchInput } from "../../components/SearchInput";
 
 const HomePage = () => {
   const [questions, setQuestions] = useState([]);
@@ -26,14 +29,16 @@ const HomePage = () => {
     getQuestions(API_RESOURCES);
   }, []);
 
-  const searchValueHandler = (e) => {
-    console.log(e.target.value);
+  const onSearchChangeHandler = (e) => {
     setSearchValue(e.target.value);
   };
 
   return (
     <>
-      <input type="text" value={searchValue} onChange={searchValueHandler} />
+      <div className={cls.controlsContainer}>
+        <SearchInput value={searchValue} onChange={onSearchChangeHandler} />
+      </div>
+
       {isLoading && <Loader />}
       {error && <p>{error}</p>}
       <QuestionCardList cards={questions} />
