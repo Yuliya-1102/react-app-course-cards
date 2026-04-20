@@ -1,0 +1,83 @@
+.container {
+    width: 100%;
+    max-width: 600px;
+    height: max-content;
+    margin: 50px auto;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    box-shadow: 0 0 8px 5px rgba(0,0,0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 15px;
+
+    button {
+        width: 100%;;
+    }
+}
+
+.editDate {
+  font-size: 12px;
+  font-style: italic;
+  margin-left: auto;
+}
+
+.cardDescription {
+  line-height: 24px;
+  font-size: 18px;
+}
+
+.cardLabels {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.cardTitle {
+    font-size: 24px;
+    line-height: 28px;
+}
+
+.cardAnswers {
+    margin-top: auto;
+    opacity: 0.65;
+}
+
+.cardAnswer {
+    font-size: 14px;
+    font-style: italic;
+    text-align: justify;
+}
+
+.cardLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  li {
+    margin-left: 15px;
+  }
+}
+
+.cardCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  span {
+    font-size: 14px;
+    padding-bottom: 2px;
+  }
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: #16c47f;
+}
+

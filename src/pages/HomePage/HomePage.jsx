@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
-import Loader from "../../components/Loader/Loader";
+import { Loader } from "../../components/Loader/Loader";
 import QuestionCardList from "../../components/QuestionCardList/QuestionCardList";
-import { API_URL, API_RESOURCES } from "../../constants";
+import { API_URL } from "../../constants";
 import { useFetch } from "../../hooks/useFetch";
 
 import cls from "./HomePage.module.css";
@@ -11,9 +11,9 @@ import { Button } from "../../components/Button";
 
 const HomePage = () => {
   const [questions, setQuestions] = useState({});
-  const [searchValue, setSearchValue] = useState(""); // ФИЛЬТРАЦИЯ на фронте, без серверного запроса
+  const [filterSearchValue, setFilterSearchValue] = useState(""); // ФИЛЬТРАЦИЯ на фронте, без серверного запроса
   const [sortSelectValue, setSortSelectValue] = useState(""); // СОРТИРОВКА С ЗАПРОСОМ НА СЕРВЕР
-  const [countSelectValue, setCountSelectValue] = useState(""); // СОРТИРОВКА по количеству на страницу
+  const [countSelectValue, setCountSelectValue] = useState(""); // количество страниц
   const [searchParams, setSearchParams] = useState(`?_page=1&_per_page=${countSelectValue}`); // ПАГИНАЦИЯ ПО СТР С ЗАПРОСОМ НА СЕРВЕР
   const controlsContainerRef = useRef(""); // для скролла вверх
 
@@ -38,14 +38,15 @@ const HomePage = () => {
   // ФИЛЬТРАЦИЯ завернули в useMemo,
   const cards = useMemo(() => {
     if (questions?.data) {
-      if (searchValue.trim()) {
-        return questions.data.filter((d) => d.question.toLowerCase().includes(searchValue.trim().toLowerCase()));
+      if (filterSearchValue.trim()) {
+        return questions.data.filter((d) => d.question.toLowerCase().includes(filterSearchValue.trim().toLowerCase()));
       } else {
         return questions.data;
       }
     }
+
     return [];
-  }, [questions, searchValue]);
+  }, [questions, filterSearchValue]);
 
   // ПАГИНАЦИЯ (json-server)
   useEffect(() => {
@@ -53,7 +54,7 @@ const HomePage = () => {
   }, [searchParams]);
 
   const onSearchChangeHandler = (e) => {
-    setSearchValue(e.target.value);
+    setFilterSearchValue(e.target.value);
   };
 
   // СОРТИРОВКА
@@ -63,14 +64,7 @@ const HomePage = () => {
     setSearchParams(`?_page=1&_per_page=${countSelectValue}&${e.target.value}`);
   };
 
-  // переключение количества карточек на странице
-  const onCountSelectChangeHandler = (e) => {
-    setCountSelectValue(e.target.value);
-
-    setSearchParams(`?_page=1&_per_page=${e.target.value}&${sortSelectValue}`);
-  };
-
-  // создаем кнопки
+  // создаем кнопки, рассчитываем количество страниц
   const pagination = useMemo(() => {
     const totalPages = questions?.pages || 0;
 
@@ -88,15 +82,24 @@ const HomePage = () => {
     }
   };
 
+  // переключение количества карточек на странице
+  const onCountSelectChangeHandler = (e) => {
+    setCountSelectValue(e.target.value);
+
+    setSearchParams(`?_page=1&_per_page=${e.target.value}&${sortSelectValue}`);
+  };
+
   const getActivePageNumber = () => (questions.next === null ? questions.last : questions.next - 1);
 
   return (
     <>
       <div className={cls.controlsContainer} ref={controlsContainerRef}>
-        <SearchInput value={searchValue} onChange={onSearchChangeHandler} />
+        <SearchInput value={filterSearchValue} onChange={onSearchChangeHandler} />
 
         <select value={sortSelectValue} onChange={onSortChangeHandler} className={cls.select}>
-          <option value="">sort by</option>
+          <option value="" disabled>
+            sort by
+          </option>
           <hr />
           <option value="_sort=level">level ABS</option>
           <option value="_sort=-level">level DESC</option>
@@ -125,12 +128,12 @@ const HomePage = () => {
       {cards.length === 0 ? (
         <p className={cls.noCardsInfo}>No cards</p>
       ) : (
-        pagination > 1 && (
+        pagination.length > 1 && (
           <div className={cls.paginationContainer} onClick={paginationHandler}>
-            {pagination.map((btn) => {
+            {pagination.map((value) => {
               return (
-                <Button key={btn} isActive={btn === getActivePageNumber()}>
-                  {btn}
+                <Button key={value} isActive={value === getActivePageNumber()}>
+                  {value}
                 </Button>
               );
             })}
