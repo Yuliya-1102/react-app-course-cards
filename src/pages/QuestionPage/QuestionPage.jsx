@@ -47,10 +47,6 @@ const QuestionPage = () => {
     fetchCard();
   }, []);
 
-  // useEffect(() => {
-  //   card !== null && setIsChecked(card.completed);
-  // }, [card.completed]);
-
   const onChangeCheckboxHandler = () => {
     setIsChecked(!isChecked);
     updateCard(!isChecked);
