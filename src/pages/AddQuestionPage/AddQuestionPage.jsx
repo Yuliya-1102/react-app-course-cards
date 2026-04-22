@@ -33,7 +33,8 @@ const createCardAction = async (_prevState, formData) => {
       throw new Error(response.statusText);
     }
 
-    const question = response.json();
+    const question = await response.json();
+
     toast.success("New question is successfully created!");
 
     return isClearForm ? {} : question;

@@ -19,10 +19,7 @@ const QuestionPage = () => {
 
   // собственный хук -------------------------------
   const [fetchCard, isCardLoading] = useFetch(async () => {
-    const response = await fetch(`${API_URL}/react/${id}`, {
-      cache: "no-store", // отключаем кэш браузера
-      headers: { "Cache-Control": "no-cache" }, // явно говорим не использовать кэш
-    });
+    const response = await fetch(`${API_URL}/react/${id}`);
 
     const data = await response.json();
 
@@ -32,8 +29,6 @@ const QuestionPage = () => {
 
   const [updateCard, isCardUpdating] = useFetch(async (isChecked) => {
     const response = await fetch(`${API_URL}/react/${id}`, {
-      cache: "no-store", // отключаем кэш браузера
-      headers: { "Cache-Control": "no-cache" }, // явно говорим не использовать кэш
       method: "PATCH", // похоже на post запрос, только с частичной заменой свойств "completed"
       body: JSON.stringify({ completed: isChecked }),
     });
