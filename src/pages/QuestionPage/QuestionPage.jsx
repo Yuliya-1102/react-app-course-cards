@@ -6,6 +6,7 @@ import { useEffect, useId, useState } from "react";
 import { useFetch } from "../../hooks/useFetch";
 import { SmallLoader, Loader } from "../../components/Loader/Loader";
 import { API_URL } from "../../constants";
+import { useAuth } from "../../hooks/useAuth";
 
 const QuestionPage = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -13,6 +14,7 @@ const QuestionPage = () => {
   const navigate = useNavigate();
   const checkboxId = useId();
   const { id } = useParams(); // из стр App.js <Route path="/question/:id" element={<QuestionPage />} />
+  const { isAuth } = useAuth();
 
   const levelVariant = () => (card.level === 1 ? "primary" : card.level === 2 ? "warning" : "alert");
   const completedVariant = () => (card.completed ? "success" : "primary");
@@ -90,9 +92,12 @@ const QuestionPage = () => {
             {isCardUpdating && <SmallLoader />}
           </label>
 
-          <Button onClick={() => navigate(`/editquestion/${card.id}`)} isDisabled={isCardUpdating}>
-            Edit question
-          </Button>
+          {isAuth && (
+            <Button onClick={() => navigate(`/editquestion/${card.id}`)} isDisabled={isCardUpdating}>
+              Edit question
+            </Button>
+          )}
+
           <Button onClick={() => navigate("/")} isDisabled={isCardUpdating}>
             Back
           </Button>
